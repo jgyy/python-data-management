@@ -4,6 +4,7 @@ from subprocess import Popen
 from time import sleep
 
 no_token = True
+nohup = "nohup.out"
 
 while no_token:
     # kill any jupyter notebook processes
@@ -12,8 +13,8 @@ while no_token:
             proc.kill()
 
     # delete old nohup.out if exists
-    if os.path.exists("nohup.out"):
-        os.remove("nohup.out")
+    if os.path.exists(nohup):
+        os.remove(nohup)
 
     # start jupyter notebook server on port 8086
     Popen(
@@ -25,7 +26,7 @@ while no_token:
     sleep(3)
 
     # write jupyter server token to screen
-    token_file = open("nohup.out")
+    token_file = open(nohup)
 
     for line in token_file:
         if line.find("token=") > 0:
